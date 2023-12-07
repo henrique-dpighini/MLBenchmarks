@@ -402,27 +402,3 @@ def load_url_spam():
                'date_access': '2023-10-29'}
 
     return dataset
-
-
-def load_crime_sanfrancisco():
-
-    label_encoder = preprocessing.LabelEncoder()
-
-    df = pd.read_csv('MLBenchmarks/datasets/Classification/crime+francisco/crime_sanfrancisco.csv')
-    df = df.dropna()
-
-    cat = df.select_dtypes(exclude=['number'])
-    for col in cat.columns:
-        df[col] = label_encoder.fit_transform(df[col])
-
-    df = df.to_numpy()
-    target = df[:, 1]
-    # data =df[:, 0] + df[:, 1:]
-    data = df[:, [0] + list(range(2, df.shape[1]))]
-
-    dataset = {'target': target,
-               'data': data,
-               'info': 'https://www.kaggle.com/competitions/sf-crime/data',
-               'date_access': '2023-10-29'}
-
-    return dataset
