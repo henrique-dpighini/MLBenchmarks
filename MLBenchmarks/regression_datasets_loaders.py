@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
-
+import openml
 def load_spm_demagnetization_analytical():
     df = pd.read_csv('https://raw.githubusercontent.com/rcpsilva/MLBenchmarks/main/MLBenchmarks/datasets/Regression/spm%2Bdemagnetization/Dataset_SPM_demagnetization.csv')
 
@@ -551,3 +551,82 @@ def load_student_por():
     return dataset
 
 
+def load_MIP_2016_regression():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 41702
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    # target = df[:, -1]
+    # data = df[:, 0:-1]
+
+    target = df[:, -2]
+    data = np.concatenate((df[:, :-2], df[:, -2 + 1:]), axis=1)
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=41702',
+               'date_access': '2023-12-17'}
+
+    return dataset
+
+
+def load_aerospace_companies_stock():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 223
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    # target = df[:, -2]
+    # data = np.concatenate((df[:, :-2], df[:, -2 + 1:]), axis=1)
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=223',
+               'date_access': '2023-12-17'}
+
+    return dataset
+
+
+def load_fish_market_weight():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 43308
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    # target = df[:, -1]
+    # data = df[:, 0:-1]
+
+    target = df[:, 1]
+    data = np.concatenate((df[:, :1], df[:, 1 + 1:]), axis=1)
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=43308',
+               'date_access': '2023-12-17'}
+
+    return dataset

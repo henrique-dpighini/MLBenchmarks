@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn import preprocessing
-
+import openml
+import numpy as np
 
 def load_breast_cancer_wisconsin():
     label_encoder = preprocessing.LabelEncoder()
@@ -381,11 +382,13 @@ def load_heart_disease_classification():
 
     return dataset
 
-def load_url_spam():
+def load_pokemon_species():
 
     label_encoder = preprocessing.LabelEncoder()
 
-    df = pd.read_csv('MLBenchmarks/datasets/Classification/url+spam/url_spam_classification.csv')
+
+    dataset_id = 43749
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
     df = df.dropna()
 
     cat = df.select_dtypes(exclude=['number'])
@@ -398,7 +401,294 @@ def load_url_spam():
 
     dataset = {'target': target,
                'data': data,
-               'info': 'https://www.kaggle.com/datasets/shivamb/spam-url-prediction',
-               'date_access': '2023-10-29'}
+               'info': 'https://www.openml.org/search?type=data&status=active&id=43749',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+def load_chronic_kidney_disease():
+
+    label_encoder = preprocessing.LabelEncoder()
+
+
+    dataset_id = 42972
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&id=42972',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_breast_cancer_coimbra():
+
+    label_encoder = preprocessing.LabelEncoder()
+
+
+    dataset_id = 42900
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&id=42900',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+def load_autoML_selector_multiclass():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 44200
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&id=44200',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_conference_attendance():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 41538
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, 3]
+    data = np.concatenate((df[:, :3], df[:, 3 + 1:]), axis=1)
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&id=41538',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_credit_score():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 31
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=31',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_blood_transfusion_service_center():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 1464
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=1464',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+def load_monks_problems():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 334
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, 0]
+    data = df[:, 1:]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=334',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_tic_tac_toe():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 50
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    #display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=50',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_diabetes_classification():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 37
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=37',
+               'date_access': '2023-12-16'}
+
+    return dataset
+
+
+def load_KC2_software_defect_prediction():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 1063
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=1063',
+               'date_access': '2023-12-17'}
+
+    return dataset
+
+
+def load_eucalyptus_soil_conservation():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 188
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=188',
+               'date_access': '2023-12-17'}
+
+    return dataset
+
+
+def load_contraceptive_method_choice():
+    label_encoder = preprocessing.LabelEncoder()
+
+    dataset_id = 23
+    df, *_ = openml.datasets.get_dataset(dataset_id).get_data()
+    df = df.dropna()
+    # display(df)
+
+    cat = df.select_dtypes(exclude=['number'])
+    for col in cat.columns:
+        df[col] = label_encoder.fit_transform(df[col])
+
+    df = df.to_numpy()
+    target = df[:, -1]
+    data = df[:, 0:-1]
+
+    dataset = {'target': target,
+               'data': data,
+               'info': 'https://www.openml.org/search?type=data&status=active&sort=runs&id=23',
+               'date_access': '2023-12-17'}
 
     return dataset
